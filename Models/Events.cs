@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 
 namespace TrabalhoDW.TrabalhoDW.Models
 {
@@ -43,6 +44,11 @@ namespace TrabalhoDW.TrabalhoDW.Models
         public string Description { get; set; }
 
         /// <summary>
+        /// Imagem do evento
+        /// </summary>
+        public string Image { get; set; }
+
+        /// <summary>
         /// Data de começo do evento
         /// </summary>
         [Required(ErrorMessage = "A data inicial é de preenchimento obrigatório")]
@@ -66,9 +72,16 @@ namespace TrabalhoDW.TrabalhoDW.Models
         /// <summary>
         /// Privacidade do evento
         /// </summary>
-        [Required(ErrorMessage = "O privacidade do evento é de preenchimento obrigatório")]
+        [Required(ErrorMessage = "A privacidade do evento é de preenchimento obrigatório")]
         [Display(Name = "Privacidade do evento")]
         public bool is_private { get; set; }
+
+        /// <summary>
+        /// Máximo de participantes do evento
+        /// </summary>
+        [Required(ErrorMessage = "O Máximo de participantes do evento é de preenchimento obrigatório")]
+        [Display(Name = "Máximo de Participantes")]
+        public int maxParticipants { get; set; }
 
         /* ++++++++++++++++++++++++++++++++++++++++++++++++
         * relacionamentos associados aos Eventos
