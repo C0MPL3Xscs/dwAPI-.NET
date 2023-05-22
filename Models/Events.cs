@@ -46,7 +46,9 @@ namespace TrabalhoDW.TrabalhoDW.Models
         /// <summary>
         /// Imagem do evento
         /// </summary>
-        public string Image { get; set; }
+        /// <summary>
+        public string Image { get; set; } = "https://www.wolflair.com/wp-content/uploads/2017/01/placeholder.jpg";
+
 
         /// <summary>
         /// Data de começo do evento
