@@ -15,6 +15,8 @@ namespace TrabalhoDW.TrabalhoDW.Models
             listaParticipant = new HashSet<Participants>();
             // inicializar a lista de eventos em que o utilizador foi convidado
             listaInvites = new HashSet<Invitations>();
+            // inicializar a lista de eventos que o utilizador criou
+            listaCreated = new HashSet<Events>();
 
         }
 
@@ -43,6 +45,12 @@ namespace TrabalhoDW.TrabalhoDW.Models
         public string Password { get; set; }
 
 
+        /// <summary>
+        /// Nome do user
+        /// </summary>
+        [Display(Name= "Imagem de perfil")]
+        public string img { get; set; }
+
         /* ++++++++++++++++++++++++++++++++++++++++++++++++
         * relacionamentos associados aos Utilizadores
         */
@@ -62,5 +70,9 @@ namespace TrabalhoDW.TrabalhoDW.Models
         /// </summary>
         public ICollection<Invitations> listaInvites { get; set; }
 
+        /// <summary>
+        /// Lista dos eventos que o utilizador criou
+        /// </summary>
+        public ICollection<Events> listaCreated { get; set; }
     }
 }
