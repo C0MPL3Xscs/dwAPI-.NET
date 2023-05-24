@@ -37,5 +37,81 @@ namespace DW3.Controllers
 
             return allUsers;
         }
+
+        [HttpGet]
+        [Route("createUser")]
+        public async Task<IActionResult> CreateUser(string name, string email, string password)
+        {
+            // Perform user creation logic here
+            // You can access the name, email, and password parameters to create a new user
+
+            // Check if the required parameters are provided
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+                return BadRequest("Name, email, and password are required.");
+            }
+                
+            // Create a new user object
+            var user = new Users
+            {
+                Name = name,
+                Email = email,
+                Password = password
+            };
+
+            try
+            {
+                var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TrabalhoDWBD;Trusted_Connection=True;MultipleActiveResultSets=true").Options;
+
+                // Save the user to the database
+                using (var context = new ApplicationDbContext(options))
+                {
+                    // Add the user to the context
+                    context.Users.Add(user);
+
+                    // Save changes to the database
+                    await context.SaveChangesAsync();
+                }
+
+                // User created successfully
+                return Ok(true);
+            }
+            catch (DbUpdateException)
+            {
+                // Error occurred while saving the user to the database
+                return StatusCode(500, "An error occurred while creating the user.");
+            }
+        }
+
+        [HttpGet]
+        [Route("CheckLogIn")]
+        public IActionResult LogIn(string email, string password)
+        {
+            // Check if the required parameters are provided
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+                return BadRequest("Email and password are required.");
+            }
+
+            try
+            {
+                var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TrabalhoDWBD;Trusted_Connection=True;MultipleActiveResultSets=true").Options;
+
+                using (var context = new ApplicationDbContext(options))
+                {
+                    // Check if a user with the provided email and password exists
+                    bool userExists = context.Users.Any(u => u.Email == email && u.Password == password);
+
+                    // Return the result
+                    return Ok(userExists);
+                }
+            }
+            catch (Exception)
+            {
+                // Error occurred while accessing the database
+                return StatusCode(500, "An error occurred while accessing the database.");
+            }
+        }
+
     }
 }

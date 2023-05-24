@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
 
 namespace TrabalhoDW.TrabalhoDW.Models
@@ -47,7 +50,9 @@ namespace TrabalhoDW.TrabalhoDW.Models
         /// Imagem do evento
         /// </summary>
         /// <summary>
-        public string Image { get; set; } = "https://www.wolflair.com/wp-content/uploads/2017/01/placeholder.jpg";
+        [Column(TypeName = "nvarchar(MAX)")]
+        [DefaultValue("('https://www.wolflair.com/wp-content/uploads/2017/01/placeholder.jpg')")]
+        public string Image { get; set; }
 
 
         /// <summary>
