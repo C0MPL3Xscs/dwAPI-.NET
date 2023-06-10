@@ -20,8 +20,15 @@ namespace TrabalhoDW.TrabalhoDW.Models
 
         }
 
+        /// <summary>
+        /// ID do user
+        /// </summary>
         public int Id { get; set; }
 
+
+        /// <summary>
+        /// Data da criação da conta
+        /// </summary>
         public DateTime created_at { get; set; }
 
         /// <summary>
@@ -33,20 +40,20 @@ namespace TrabalhoDW.TrabalhoDW.Models
         public string Name { get; set; }
 
         /// <summary>
-        /// Nome do user
+        /// Email do user
         /// </summary>
         [Required(ErrorMessage = "O {0} é de preenchimento obrigatório")]
         public string Email { get; set; }
 
         /// <summary>
-        /// Nome do user
+        /// Password do user
         /// </summary>
         [Required(ErrorMessage = "A {0} é de preenchimento obrigatório")]
         public string Password { get; set; }
 
 
         /// <summary>
-        /// Nome do user
+        /// Imagem do user
         /// </summary>
         [Display(Name= "Imagem de perfil")]
         public string img { get; set; }
