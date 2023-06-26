@@ -23,6 +23,13 @@ namespace DW3.Controllers
         }
 
         [HttpGet]
+        [Route("getUser")]
+        public String getUserName(int id)
+        {
+            return _context.Users.FirstOrDefault(u => u.Id == id);
+        }
+
+        [HttpGet]
         [Route("getNameUser")]
         public String getUserName(int id)
         {
