@@ -36,6 +36,7 @@ namespace DW3.Controllers
             return _context.Users?.FirstOrDefault(u => u.Id == id).img;
         }
 
+        //Que raio é isso joão???
         [HttpGet]
         [Route("getEventsCreated")]
         public String getEventsCreated(int id)
@@ -130,8 +131,20 @@ namespace DW3.Controllers
                     // Check if a user with the provided email and password exists
                     bool userExists = context.Users.Any(u => u.Email == email && u.Password == password);
 
+                    if (userExists)
+                    {
+                        // Generate a session identifier or authentication token
+                        string sessionId = Guid.NewGuid().ToString();
+
+                        // Store the session identifier in a session store (e.g., ASP.NET Session State, cookies, or tokens)
+                        // Example: HttpContext.Session.SetString("SessionId", sessionId);
+
+                        // Return the result along with the session identifier
+                        return Ok(new { LoggedIn = true, SessionId = sessionId });
+                    }
+
                     // Return the result
-                    return Ok(userExists);
+                    return Ok(new { LoggedIn = false });
                 }
             }
             catch (Exception)
@@ -140,6 +153,7 @@ namespace DW3.Controllers
                 return StatusCode(500, "An error occurred while accessing the database.");
             }
         }
+
 
     }
 }

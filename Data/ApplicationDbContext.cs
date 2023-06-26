@@ -22,5 +22,21 @@ namespace DW3.Data
         public DbSet<Reviews> Reviews { get; set; }
         public DbSet<Event_Tagging> Event_Tagging { get; set; }
         public DbSet<Event_Tags> Event_Tags { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Configure the relationships
+            modelBuilder.Entity<Participants>()
+                .HasOne(p => p.User)
+                .WithMany()
+                .HasForeignKey(p => p.UserFK);
+
+            modelBuilder.Entity<Participants>()
+                .HasOne(p => p.Event)
+                .WithMany(e => e.listaParticipants)
+                .HasForeignKey(p => p.EventFK);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

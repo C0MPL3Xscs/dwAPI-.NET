@@ -166,17 +166,16 @@ namespace DW3.Controllers
         [Route("getEvent")]
         public ActionResult GetEventById(int id)
         {
-            var eventData = _context.Events.FirstOrDefault(e => e.Id == id);
+            var eventData = _context.Events.Include(e => e.listaParticipants)
+                                           .ThenInclude(p => p.User)
+                                           .FirstOrDefault(e => e.Id == id);
 
             if (eventData == null)
             {
                 return NotFound(); // Return a 404 Not Found response if the event is not found
             }
 
-            return Json(eventData); // Return the event data as JSON
+            return Json(eventData); // Return the event data as JSON, including the list of participants
         }
-
-
-
     }
 }
