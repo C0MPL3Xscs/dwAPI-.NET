@@ -37,6 +37,8 @@ namespace DW3.Data
                 .HasForeignKey(p => p.EventFK);
 
             base.OnModelCreating(modelBuilder);
+
+
         }
     }
 }

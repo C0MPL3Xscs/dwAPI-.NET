@@ -22,18 +22,19 @@ namespace DW3.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        [Route("getUser")]
-        public String getUserName(int id)
-        {
-            return _context.Users.FirstOrDefault(u => u.Id == id);
-        }
 
         [HttpGet]
-        [Route("getNameUser")]
-        public String getUserName(int id)
+        [Route("getUser")]
+        public ActionResult<Users> GetUser(int id)
         {
-            return _context.Users?.FirstOrDefault(u => u.Id == id).Name;
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+
+            if (user == null)
+            {
+                return NotFound(); // Retorna um 404 Not Found caso o usuário não seja encontrado
+            }
+
+            return user; // Retorna o objeto Users como resposta JSON
         }
 
         [HttpGet]
@@ -44,19 +45,6 @@ namespace DW3.Controllers
         }
 
 
-        [HttpGet]
-        [Route("getEventsCreated")]
-        public String getEventsCreated(int id)
-        {
-            return _context.Users?.FirstOrDefault(u => u.Id == id).listaCreated;
-        }
-
-        [HttpGet]
-        [Route("getDataCreated")]
-        public String getDataCreated(int id)
-        {
-            return _context.Users?.FirstOrDefault(u => u.Id == id).data_created;
-        }
 
         [HttpGet]
         [Route("getUsers")]

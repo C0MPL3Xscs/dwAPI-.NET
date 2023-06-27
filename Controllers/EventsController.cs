@@ -178,46 +178,6 @@ namespace DW3.Controllers
             return Json(eventData); // Return the event data as JSON, including the list of participants
         }
 
-        [HttpGet]
-        [Route("getEvent")]
-        public String getUserName(int id)
-        {
-            return _context.Users.FirstOrDefault(e => e.Id == id);
-        }
 
-        [HttpGet]
-        [Route("getListaParticipants")]
-        public String getListaParticipants(int id)
-        {
-            return _context.Users?.FirstOrDefault(e => e.Id == id).listaParticipants;
-        }
-
-        [HttpGet]
-        [Route("getListaReviewsEvents")]
-        public String getListaReviewsEvents(int id)
-        {
-            return _context.Users?.FirstOrDefault(e => e.Id == id).listaReviewsEvents;
-        }
-
-        [HttpGet]
-        [Route("getListaInvitations")]
-        public String getListaInvitations(int id)
-        {
-            return _context.Users?.FirstOrDefault(e => e.Id == id).listaInvitations;
-        }
-
-        [HttpGet]
-        [Route("getTags")]
-        public String getTags(int id)
-        {
-            return _context.Users?.FirstOrDefault(e => e.Id == id).Tags;
-        }
-
-        [HttpGet]
-        [Route("getTags")]
-        public String getTags(int id)
-        {
-            return _context.Users?.FirstOrDefault(e => e.Id == id).Tags;
-        }
     }
 }
