@@ -37,7 +37,6 @@ namespace DW3.Data.Migrations
                     end_time = table.Column<DateTime>(type: "datetime2", nullable: false),
                     location = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     is_private = table.Column<bool>(type: "bit", nullable: false),
-                    listParticipants = table.Column<string>(type: "nvarchar(max)", nullable: false),
 
                 },
                 constraints: table =>

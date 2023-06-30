@@ -37,6 +37,33 @@ namespace DW3.Controllers
             return user; // Retorna o objeto Users como resposta JSON
         }
 
+            // GET api/user/{userId}/events
+            [HttpGet("getMyEvents")]
+            public ActionResult<IEnumerable<int>> GetEventIdsForUser(int userId)
+            {
+                // Retrieve the user by ID
+                var user = _context.Users.Find(userId);
+
+                if (user == null)
+                {
+                    return NotFound(); // User not found
+                }
+
+            // Query the events associated with the user
+            var eventIds = _context.EventsUsers
+                .Where(e => e.UserId == userId)
+                .Select(e => e.EventId)
+                .ToList();
+
+            return eventIds;
+            }
+        
+
+
+
+
+
+
         [HttpGet]
         [Route("getImgUser")]
         public String getUserImg(int id)
