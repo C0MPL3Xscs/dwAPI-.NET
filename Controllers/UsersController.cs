@@ -23,42 +23,6 @@ namespace DW3.Controllers
         }
 
         [HttpGet]
-        [Route("getNameUser")]
-        public String getUserName(int id)
-        {
-            return _context.Users?.FirstOrDefault(u => u.Id == id).Name;
-        }
-
-        [HttpGet]
-        [Route("getImgUser")]
-        public String getUserImg(int id)
-        {
-            return _context.Users?.FirstOrDefault(u => u.Id == id).img;
-        }
-
-        //Que raio é isso joão???
-        [HttpGet]
-        [Route("getEventsCreated")]
-        public String getEventsCreated(int id)
-        {
-            return _context.Users?.FirstOrDefault(u => u.Id == id).listaCreated;
-        }
-
-        [HttpGet]
-        [Route("getEventsCreated")]
-        public String getEventsCreated(int id)
-        {
-            return _context.Users?.FirstOrDefault(u => u.Id == id).listaCreated;
-        }
-
-        [HttpGet]
-        [Route("getEventsCreated")]
-        public String getEventsCreated(int id)
-        {
-            return _context.Users?.FirstOrDefault(u => u.Id == id).data_created;
-        }
-
-        [HttpGet]
         [Route("getUsers")]
         public List<Users> getUsers()
         {
