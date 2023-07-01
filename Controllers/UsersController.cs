@@ -22,6 +22,66 @@ namespace DW3.Controllers
             _context = context;
         }
 
+
+        [HttpGet]
+        [Route("getUser")]
+        public ActionResult<Users> GetUser(int id)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+
+            if (user == null)
+            {
+                return NotFound(); // Retorna um 404 Not Found caso o usuário não seja encontrado
+            }
+
+            return user; // Retorna o objeto Users como resposta JSON
+        }
+
+            // GET api/user/{userId}/events
+            [HttpGet("getMyEvents")]
+            public ActionResult<IEnumerable<int>> GetEventIdsForUser(int userId)
+            {
+                // Retrieve the user by ID
+                var user = _context.Users.Find(userId);
+
+                if (user == null)
+                {
+                    return NotFound(); // User not found
+                }
+
+            // Query the events associated with the user
+            var eventIds = _context.EventsUsers
+                .Where(e => e.UserId == userId)
+                .Select(e => e.EventId)
+                .ToList();
+
+            return eventIds;
+            }
+        
+
+
+
+
+
+
+        [HttpGet]
+        [Route("getImgUser")]
+        public String getUserImg(int id)
+        {
+            return _context.Users?.FirstOrDefault(u => u.Id == id).img;
+        }
+
+
+
+        [HttpGet]
+        [Route("getUsers")]
+        public List<Users> getUsers()
+        {
+            var allUsers = _context.Users?.ToList();
+
+            return allUsers;
+        }
+
         [HttpGet]
         [Route("createUser")]
         public async Task<IActionResult> CreateUser(string name, string email, string password)
