@@ -23,51 +23,6 @@ namespace DW3.Controllers
         }
 
         [HttpGet]
-        [Route("getUser")]
-        public String getUserName(int id)
-        {
-            return _context.Users.FirstOrDefault(u => u.Id == id);
-        }
-
-        [HttpGet]
-        [Route("getNameUser")]
-        public String getUserName(int id)
-        {
-            return _context.Users?.FirstOrDefault(u => u.Id == id).Name;
-        }
-
-        [HttpGet]
-        [Route("getImgUser")]
-        public String getUserImg(int id)
-        {
-            return _context.Users?.FirstOrDefault(u => u.Id == id).img;
-        }
-
-
-        [HttpGet]
-        [Route("getEventsCreated")]
-        public String getEventsCreated(int id)
-        {
-            return _context.Users?.FirstOrDefault(u => u.Id == id).listaCreated;
-        }
-
-        [HttpGet]
-        [Route("getDataCreated")]
-        public String getDataCreated(int id)
-        {
-            return _context.Users?.FirstOrDefault(u => u.Id == id).data_created;
-        }
-
-        [HttpGet]
-        [Route("getUsers")]
-        public List<Users> getUsers()
-        {
-            var allUsers = _context.Users?.ToList();
-
-            return allUsers;
-        }
-
-        [HttpGet]
         [Route("createUser")]
         public async Task<IActionResult> CreateUser(string name, string email, string password)
         {
@@ -110,6 +65,20 @@ namespace DW3.Controllers
                 // Error occurred while saving the user to the database
                 return StatusCode(500, "An error occurred while creating the user.");
             }
+        }
+
+        [HttpGet]
+        [Route("getUser")]
+        public ActionResult LogIn(int id)
+        {
+            var userData = _context.Users.FirstOrDefault(e => e.Id == id);
+
+            if (userData == null)
+            {
+                return NotFound(); // Return a 404 Not Found response if the event is not found
+            }
+
+            return Json(userData); // Return the user data as JSON
         }
 
         [HttpGet]
