@@ -23,15 +23,6 @@ namespace DW3.Controllers
         }
 
         [HttpGet]
-        [Route("getUsers")]
-        public List<Users> getUsers()
-        {
-            var allUsers = _context.Users?.ToList();
-
-            return allUsers;
-        }
-
-        [HttpGet]
         [Route("createUser")]
         public async Task<IActionResult> CreateUser(string name, string email, string password)
         {
@@ -43,13 +34,14 @@ namespace DW3.Controllers
             {
                 return BadRequest("Name, email, and password are required.");
             }
-                
+
             // Create a new user object
             var user = new Users
             {
                 Name = name,
                 Email = email,
-                Password = password
+                Password = password,
+                img = "default.jpg"
             };
 
             try
@@ -67,7 +59,7 @@ namespace DW3.Controllers
                 }
 
                 // User created successfully
-                return Ok(true);
+                return Ok(new { success = true });
             }
             catch (DbUpdateException)
             {
@@ -75,6 +67,120 @@ namespace DW3.Controllers
                 return StatusCode(500, "An error occurred while creating the user.");
             }
         }
+
+        [HttpGet]
+        [Route("changeName")]
+        public async Task<IActionResult> ChangeUserName(int id, string newName)
+        {
+            try
+            {
+                var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TrabalhoDWBD;Trusted_Connection=True;MultipleActiveResultSets=true").Options;
+
+                using (var context = new ApplicationDbContext(options))
+                {
+                    // Find the user with the provided ID
+                    var user = await context.Users.FindAsync(id);
+
+                    if (user != null)
+                    {
+                        // Update the username
+                        user.Name = newName;
+
+                        // Save changes to the database
+                        await context.SaveChangesAsync();
+
+                        // Return a success response
+                        return Ok(new { success = true });
+                    }
+
+                    // User not found
+                    return NotFound();
+                }
+            }
+            catch (Exception)
+            {
+                // Error occurred while accessing the database
+                return StatusCode(500, "An error occurred while accessing the database.");
+            }
+        }
+
+        [HttpGet]
+        [Route("changePassword")]
+        public async Task<IActionResult> ChangePassword(int id, string previousPassword, string newPassword)
+        {
+            try
+            {
+                var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TrabalhoDWBD;Trusted_Connection=True;MultipleActiveResultSets=true").Options;
+
+                using (var context = new ApplicationDbContext(options))
+                {
+                    // Find the user with the provided ID
+                    var user = await context.Users.FindAsync(id);
+
+                    if (user != null)
+                    {
+                            // Update the username
+                            user.Password = newPassword;
+
+                            // Save changes to the database
+                            await context.SaveChangesAsync();
+
+                            // Return a success response
+                            return Ok(new { success = true });
+                    }
+
+                    // User not found
+                    return NotFound();
+                }
+            }
+            catch (Exception)
+            {
+                // Error occurred while accessing the database
+                return StatusCode(500, "An error occurred while accessing the database.");
+            }
+        }
+
+        [HttpGet]
+        [Route("checkPassword")]
+        public IActionResult CheckPassword(int id, string password)
+        {
+            // Check if the required parameters are provided
+            if (string.IsNullOrEmpty(password))
+            {
+                return BadRequest("Password is required.");
+            }
+
+            try
+            {
+                var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                    .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TrabalhoDWBD;Trusted_Connection=True;MultipleActiveResultSets=true")
+                    .Options;
+
+                using (var context = new ApplicationDbContext(options))
+                {
+                    // Find the user with the provided id
+                    var user = context.Users.FirstOrDefault(u => u.Id == id);
+
+                    if (user == null)
+                    {
+                        return NotFound("User not found.");
+                    }
+
+                    // Check if the provided password matches the user's password
+                    bool isPasswordCorrect = user.Password == password;
+
+                    // Return the result
+                    return Ok(new { PasswordCorrect = isPasswordCorrect });
+                }
+            }
+            catch (Exception)
+            {
+                // Error occurred while accessing the database
+                return StatusCode(500, "An error occurred while accessing the database.");
+            }
+        }
+
+
 
         [HttpGet]
         [Route("CheckLogIn")]
@@ -92,10 +198,10 @@ namespace DW3.Controllers
 
                 using (var context = new ApplicationDbContext(options))
                 {
-                    // Check if a user with the provided email and password exists
-                    bool userExists = context.Users.Any(u => u.Email == email && u.Password == password);
+                    // Find the user with the provided email and password
+                    var user = context.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
 
-                    if (userExists)
+                    if (user != null)
                     {
                         // Generate a session identifier or authentication token
                         string sessionId = Guid.NewGuid().ToString();
@@ -103,8 +209,13 @@ namespace DW3.Controllers
                         // Store the session identifier in a session store (e.g., ASP.NET Session State, cookies, or tokens)
                         // Example: HttpContext.Session.SetString("SessionId", sessionId);
 
-                        // Return the result along with the session identifier
-                        return Ok(new { LoggedIn = true, SessionId = sessionId });
+                        // Return the user information along with the session identifier
+                        return Ok(new
+                        {
+                            LoggedIn = true,
+                            SessionId = sessionId,
+                            User = user
+                        });
                     }
 
                     // Return the result
@@ -118,6 +229,24 @@ namespace DW3.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("getEvents")]
+        public ActionResult GetEvents(int id)
+        {
+            var UserData = _context.Users.FirstOrDefault(e => e.Id == id);
+
+            if (UserData == null)
+            {
+                return NotFound(); // Return a 404 Not Found response if the event is not found
+            }
+
+            var Events = _context.Events
+                .Where(p => p.host_id == id)
+                .Select(p => p.Id)
+                .ToArray();
+
+            return Json(new { Events }); // Return the event data as JSON, including the list of participants
+        }
 
     }
 }

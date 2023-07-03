@@ -12,9 +12,11 @@ namespace TrabalhoDW.TrabalhoDW.Models
     /// <summary>
     /// Dados dos Eventos
     /// </summary>
-    public class Events{
+    public class Events
+    {
 
-        public Events() {
+        public Events()
+        {
             // inicializar a lista de Reviews do evento
             listaReviewsEvents = new HashSet<Reviews>();
             // inicializar a lista de Convites do evento
@@ -36,7 +38,7 @@ namespace TrabalhoDW.TrabalhoDW.Models
         /// Nome do evento
         /// </summary>
         [Required(ErrorMessage = "O nome do evento é de preenchimento obrigatório")]
-        [StringLength(maximumLength:30)]
+        [StringLength(maximumLength: 30)]
         [Display(Name = "Nome do evento")]
         public string title { get; set; }
 
