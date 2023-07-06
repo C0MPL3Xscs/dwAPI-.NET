@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using DW3.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using TrabalhoDW.TrabalhoDW.Models;
@@ -33,6 +34,8 @@ namespace DW3.Data
                 .HasForeignKey(p => p.EventFK);
 
             base.OnModelCreating(modelBuilder);
+
+
         }
     }
 }

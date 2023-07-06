@@ -36,11 +36,111 @@ namespace DW3.Data.Migrations
                     start_time = table.Column<DateTime>(type: "datetime2", nullable: false),
                     end_time = table.Column<DateTime>(type: "datetime2", nullable: false),
                     location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    is_private = table.Column<bool>(type: "bit", nullable: false)
+                    is_private = table.Column<bool>(type: "bit", nullable: false),
+
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Events", x => x.Id);
+                });
+
+
+            migrationBuilder.CreateTable(
+                name: "EventsUsers",
+                columns: table => new
+                {
+                    ListEventsId = table.Column<int>(type: "int", nullable: false),
+                    ListUsersId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventsUsers", x => new { x.ListEventsId, x.ListUsersId });
+                    table.ForeignKey(
+                        name: "FK_EventsUsers_Events_ListEventsId",
+                        column: x => x.ListEventsId,
+                        principalTable: "Events",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EventsUsers_Users_ListUsersId",
+                        column: x => x.ListUsersId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EventsInvitations",
+                columns: table => new
+                {
+                    ListEventsId = table.Column<int>(type: "int", nullable: false),
+                    ListInvitationsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventsInvitations", x => new { x.ListEventsId, x.ListInvitationsId });
+                    table.ForeignKey(
+                        name: "FK_EventsInvitations_Events_ListEventsId",
+                        column: x => x.ListEventsId,
+                        principalTable: "Events",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EventsInvitations_Invitations_ListInvitationsId",
+                        column: x => x.ListInvitationsId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+
+            migrationBuilder.CreateTable(
+                name: "EventsReviews",
+                columns: table => new
+                {
+                    ListEventsId = table.Column<int>(type: "int", nullable: false),
+                    ListReviewsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventsReviews", x => new { x.ListEventsId, x.ListReviewsId });
+                    table.ForeignKey(
+                        name: "FK_EventsReviews_Events_ListEventsId",
+                        column: x => x.ListEventsId,
+                        principalTable: "Events",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EventsReviews_Reviews_ListReviewsId",
+                        column: x => x.ListReviewsId,
+                        principalTable: "Reviews",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+
+            migrationBuilder.CreateTable(
+                name: "EventsTags",
+                columns: table => new
+                {
+                    ListEventsId = table.Column<int>(type: "int", nullable: false),
+                    ListTagsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventsTags", x => new { x.ListEventsId, x.ListTagsId });
+                    table.ForeignKey(
+                        name: "FK_EventsTags_Events_ListEventsId",
+                        column: x => x.ListEventsId,
+                        principalTable: "Events",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EventsTags_Tags_ListTagsId",
+                        column: x => x.ListTagsId,
+                        principalTable: "Tags",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -57,6 +157,80 @@ namespace DW3.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UsersReviews",
+                columns: table => new
+                {
+                    ListUsersId = table.Column<int>(type: "int", nullable: false),
+                    ListReviewsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UsersReviews", x => new { x.ListUsersId, x.ListReviewsId });
+                    table.ForeignKey(
+                        name: "FK_UsersReviews_Users_ListUsersId",
+                        column: x => x.ListUsersId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UsersReviews_Reviews_ListReviewsId",
+                        column: x => x.ListReviewsId,
+                        principalTable: "Reviews",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+
+            migrationBuilder.CreateTable(
+                name: "UsersInvitations",
+                columns: table => new
+                {
+                    ListUsersId = table.Column<int>(type: "int", nullable: false),
+                    ListInvitationsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UsersInvitations", x => new { x.ListUsersId, x.ListInvitationsId });
+                    table.ForeignKey(
+                        name: "FK_UsersInvitations_Users_ListUsersId",
+                        column: x => x.ListUsersId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UsersInvitations_Invitations_ListInvitationsId",
+                        column: x => x.ListInvitationsId,
+                        principalTable: "Invitations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+
+            migrationBuilder.CreateTable(
+                name: "UsersParticipants",
+                columns: table => new
+                {
+                    ListUsersId = table.Column<int>(type: "int", nullable: false),
+                    ListParticipantsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UsersParticipants", x => new { x.ListUsersId, x.ListParticipantsId });
+                    table.ForeignKey(
+                        name: "FK_UsersParticipants_Users_ListUsersId",
+                        column: x => x.ListUsersId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UsersParticipants_Participants_ListParticipantsId",
+                        column: x => x.ListParticipantsId,
+                        principalTable: "Participants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,11 +259,36 @@ namespace DW3.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+
+            migrationBuilder.CreateTable(
+                name: "TaggingTags",
+                columns: table => new
+                {
+                    ListTaggingId = table.Column<int>(type: "int", nullable: false),
+                    ListTagsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TagginTags", x => new { x.ListTaggingId, x.ListTagsId });
+                    table.ForeignKey(
+                        name: "FK_TaggingTags_Tagging_ListTaggingId",
+                        column: x => x.ListTaggingId,
+                        principalTable: "Event_Tagging",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TaggingsTags_Tags_ListTagsId",
+                        column: x => x.ListTagsId,
+                        principalTable: "Tags",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Invitations",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     is_valid = table.Column<bool>(type: "bit", nullable: false),
                     code = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
@@ -98,7 +297,7 @@ namespace DW3.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Invitations", x => x.id);
+                    table.PrimaryKey("PK_Invitations", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Invitations_Events_EventFK",
                         column: x => x.EventFK,
@@ -143,7 +342,7 @@ namespace DW3.Data.Migrations
                 name: "Reviews",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     created_at = table.Column<DateTime>(type: "datetime2", nullable: false),
                     rating = table.Column<int>(type: "int", nullable: false),
@@ -153,7 +352,7 @@ namespace DW3.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reviews", x => x.id);
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Reviews_Events_EventFK",
                         column: x => x.EventFK,

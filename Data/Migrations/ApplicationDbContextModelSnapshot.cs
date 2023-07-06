@@ -276,6 +276,9 @@ namespace DW3.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(MAX)");
 
+                    b.Property<int?>("UsersId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("created_at")
                         .HasColumnType("datetime2");
 
@@ -304,6 +307,8 @@ namespace DW3.Data.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UsersId");
 
                     b.ToTable("Events");
                 });
@@ -353,11 +358,16 @@ namespace DW3.Data.Migrations
                     b.Property<int>("UserFK")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UsersId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EventFK");
 
                     b.HasIndex("UserFK");
+
+                    b.HasIndex("UsersId");
 
                     b.ToTable("Participants");
                 });
@@ -418,6 +428,10 @@ namespace DW3.Data.Migrations
 
                     b.Property<DateTime>("created_at")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("img")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -494,6 +508,13 @@ namespace DW3.Data.Migrations
                     b.Navigation("Tags");
                 });
 
+            modelBuilder.Entity("TrabalhoDW.TrabalhoDW.Models.Events", b =>
+                {
+                    b.HasOne("TrabalhoDW.TrabalhoDW.Models.Users", null)
+                        .WithMany("listaCreated")
+                        .HasForeignKey("UsersId");
+                });
+
             modelBuilder.Entity("TrabalhoDW.TrabalhoDW.Models.Invitations", b =>
                 {
                     b.HasOne("TrabalhoDW.TrabalhoDW.Models.Events", "Event")
@@ -522,10 +543,14 @@ namespace DW3.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("TrabalhoDW.TrabalhoDW.Models.Users", "User")
-                        .WithMany("listaParticipant")
+                        .WithMany()
                         .HasForeignKey("UserFK")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("TrabalhoDW.TrabalhoDW.Models.Users", null)
+                        .WithMany("listaParticipant")
+                        .HasForeignKey("UsersId");
 
                     b.Navigation("Event");
 
@@ -569,6 +594,8 @@ namespace DW3.Data.Migrations
 
             modelBuilder.Entity("TrabalhoDW.TrabalhoDW.Models.Users", b =>
                 {
+                    b.Navigation("listaCreated");
+
                     b.Navigation("listaInvites");
 
                     b.Navigation("listaParticipant");
