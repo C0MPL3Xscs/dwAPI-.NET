@@ -212,19 +212,19 @@ namespace DW3.Controllers
         }
 
         [HttpGet]
-[Route("getEventIds")]
-public IActionResult GetEventIds()
-{
-    var ids = _context.Events.Select(p => p.Id).ToArray();
+        [Route("getEventIds")]
+        public IActionResult GetEventIds()
+        {
+            var ids = _context.Events.Select(p => p.Id).ToArray();
 
-    return Ok(ids); // Return the event ids as JSON response
-}
+            return Ok(ids); // Return the event ids as JSON response
+        }
 
 
 
         [HttpPost]
         [Route("addParticipant")]
-        public async Task<IActionResult> AddParticipant( int userId, int eventId)
+        public async Task<IActionResult> AddParticipant(int userId, int eventId)
         {
             try
             {
@@ -270,10 +270,10 @@ public IActionResult GetEventIds()
                 .ToArray();
 
             var result = new
-                {
-                    EventData = eventData,
-                    Participants = participants
-                };
+            {
+                EventData = eventData,
+                Participants = participants
+            };
 
             return Json(new { result }); // Return the event data as JSON, including the list of participants
         }

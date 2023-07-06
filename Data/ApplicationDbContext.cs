@@ -1,5 +1,4 @@
-﻿using DW3.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using TrabalhoDW.TrabalhoDW.Models;
@@ -16,7 +15,7 @@ namespace DW3.Data
         }
 
 
-        public DbSet <Users> Users { get; set; }
+        public DbSet<Users> Users { get; set; }
         public DbSet<Events> Events { get; set; }
         public DbSet<Participants> Participants { get; set; }
 
@@ -34,8 +33,6 @@ namespace DW3.Data
                 .HasForeignKey(p => p.EventFK);
 
             base.OnModelCreating(modelBuilder);
-
-
         }
     }
 }

@@ -22,9 +22,9 @@ namespace DW3.Controllers
         // GET: EventsControllerNET
         public async Task<IActionResult> Index()
         {
-              return _context.Events != null ? 
-                          View(await _context.Events.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Events'  is null.");
+            return _context.Events != null ?
+                        View(await _context.Events.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Events'  is null.");
         }
 
         // GET: EventsControllerNET/Details/5
@@ -150,14 +150,14 @@ namespace DW3.Controllers
             {
                 _context.Events.Remove(events);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool EventsExists(int id)
         {
-          return (_context.Events?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Events?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
