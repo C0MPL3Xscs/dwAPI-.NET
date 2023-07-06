@@ -13,11 +13,11 @@ namespace DW3.Controllers
 
     [ApiController]
     [Route("api/[controller]")]
-    public class UsersController : Controller
+    public class UsersControllerAPI : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public UsersController(ApplicationDbContext context)
+        public UsersControllerAPI(ApplicationDbContext context)
         {
             _context = context;
         }

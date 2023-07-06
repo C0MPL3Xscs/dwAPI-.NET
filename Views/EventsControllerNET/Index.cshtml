@@ -25,6 +25,9 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.start_time)
             </th>
             <th>
@@ -35,6 +38,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.is_private)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.maxParticipants)
             </th>
             <th></th>
         </tr>
@@ -55,6 +61,9 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.start_time)
             </td>
             <td>
@@ -65,6 +74,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.is_private)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.maxParticipants)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
