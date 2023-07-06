@@ -17,11 +17,7 @@ namespace DW3.Data
 
         public DbSet <Users> Users { get; set; }
         public DbSet<Events> Events { get; set; }
-        public DbSet<Invitations> Invitations { get; set; }
         public DbSet<Participants> Participants { get; set; }
-        public DbSet<Reviews> Reviews { get; set; }
-        public DbSet<Event_Tagging> Event_Tagging { get; set; }
-        public DbSet<Event_Tags> Event_Tags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

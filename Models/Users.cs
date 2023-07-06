@@ -9,12 +9,8 @@ namespace TrabalhoDW.TrabalhoDW.Models
     public class Users{
 
         public Users(){
-            // inicializar a lista de Reviews do utilizador
-            listaReviewsUser = new HashSet<Reviews>();
             // inicializar a lista de eventos em o utilizador participa
             listaParticipant = new HashSet<Participants>();
-            // inicializar a lista de eventos em que o utilizador foi convidado
-            listaInvites = new HashSet<Invitations>();
             // inicializar a lista de eventos que o utilizador criou
             listaCreated = new HashSet<Events>();
 
@@ -56,19 +52,9 @@ namespace TrabalhoDW.TrabalhoDW.Models
         */
 
         /// <summary>
-        /// Lista das Reviews associadas ao Útilizador
-        /// </summary>
-        public ICollection<Reviews> listaReviewsUser { get; set; }
-
-        /// <summary>
         /// Lista dos eventos em que o utilizador participa
         /// </summary>
         public ICollection<Participants> listaParticipant { get; set; }
-
-        /// <summary>
-        /// Lista dos eventos em que o utilizador foi convidado
-        /// </summary>
-        public ICollection<Invitations> listaInvites { get; set; }
 
         /// <summary>
         /// Lista dos eventos que o utilizador criou

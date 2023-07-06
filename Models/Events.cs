@@ -17,12 +17,6 @@ namespace TrabalhoDW.TrabalhoDW.Models
 
         public Events()
         {
-            // inicializar a lista de Reviews do evento
-            listaReviewsEvents = new HashSet<Reviews>();
-            // inicializar a lista de Convites do evento
-            listaInvitations = new HashSet<Invitations>();
-            // inicializar as Tags do evento
-            Tags = new HashSet<Event_Tagging>();
             // inicializar a lista de Participantes do evento
             listaParticipants = new HashSet<Participants>();
         }
@@ -95,21 +89,6 @@ namespace TrabalhoDW.TrabalhoDW.Models
         /* ++++++++++++++++++++++++++++++++++++++++++++++++
         * relacionamentos associados aos Eventos
         */
-
-        /// <summary>
-        /// Lista das Reviews associadas ao Evento
-        /// </summary>
-        public ICollection<Reviews> listaReviewsEvents { get; set; }
-
-        /// <summary>
-        /// Lista das Convites associados ao Evento
-        /// </summary>
-        public ICollection<Invitations> listaInvitations { get; set; }
-
-        /// <summary>
-        /// Tags associadas ao Evento
-        /// </summary>
-        public ICollection<Event_Tagging> Tags { get; set; }
 
         /// <summary>
         /// Lista dos Participantes associados ao Evento
