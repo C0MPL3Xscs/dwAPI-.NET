@@ -71,6 +71,8 @@
             @Html.DisplayFor(model => model.maxParticipants)
         </dd>
     </dl>
+    <a href="@Url.Action("Participate", "EventsControllerAPI", new { eventId = Model.Id })" class="btn btn-primary">Participate</a>
+
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |

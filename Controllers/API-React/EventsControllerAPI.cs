@@ -9,6 +9,7 @@ using DW3.Data;
 using TrabalhoDW.TrabalhoDW.Models;
 using Microsoft.AspNetCore.Http;
 using System.Data;
+using System.Security.Claims;
 
 namespace DW3.Controllers
 {
@@ -120,6 +121,43 @@ namespace DW3.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(events);
+        }
+
+        public ActionResult Participate(int eventId)
+        {
+            // Get the currently logged-in user (assuming you have authentication set up)
+            Users currentUser = GetUser();
+
+            // Find the event based on the eventId parameter
+            Events eventToParticipate = _context.Events.Find(eventId);
+
+            if (eventToParticipate != null && currentUser != null)
+            {
+                // Create a new participant entry
+                Participants participant = new Participants
+                {
+                    EventFK = eventToParticipate.Id,
+                    UserFK = currentUser.Id
+                };
+
+                // Save the participant to the database
+                _context.Participants.Add(participant);
+                _context.SaveChanges();
+            }
+
+            // Redirect back to the event details page
+            return RedirectToAction("Details", new { id = eventId });
+        }
+
+        private Users GetUser()
+        {
+            // Get the currently authenticated user
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            // Retrieve the user from the database using the user ID
+            var user = _context.Users.Find(userId);
+
+            return user;
         }
 
         public async Task<bool> EventsExists(int id)
