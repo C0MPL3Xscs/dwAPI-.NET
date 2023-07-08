@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TrabalhoDW.TrabalhoDW.Models
 {
@@ -22,8 +23,8 @@ namespace TrabalhoDW.TrabalhoDW.Models
         /// FK para o User_ID
         /// </summary>
         [ForeignKey(nameof(User))]
-        public int UserFK { get; set; }
-        public Users User { get; set; }
+        public string UserFK { get; set; }
+        public IdentityUser User { get; set; }
 
         /// <summary>
         /// FK para o Event_ID

@@ -14,9 +14,9 @@ namespace DW3.Controllers
     public class EventsControllerNET : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<Users> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public EventsControllerNET(ApplicationDbContext context, UserManager<Users> userManager)
+        public EventsControllerNET(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _userManager = userManager;
