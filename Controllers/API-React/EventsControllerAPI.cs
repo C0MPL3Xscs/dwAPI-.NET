@@ -126,7 +126,7 @@ namespace DW3.Controllers
         public ActionResult Participate(int eventId)
         {
             // Get the currently logged-in user (assuming you have authentication set up)
-            Users currentUser = GetUser();
+            User currentUser = GetUser();
 
             // Find the event based on the eventId parameter
             Events eventToParticipate = _context.Events.Find(eventId);
@@ -149,7 +149,7 @@ namespace DW3.Controllers
             return RedirectToAction("Details", new { id = eventId });
         }
 
-        private Users GetUser()
+        private User GetUser()
         {
             // Get the currently authenticated user
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

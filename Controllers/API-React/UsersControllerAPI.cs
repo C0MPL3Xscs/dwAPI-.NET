@@ -36,7 +36,7 @@ namespace DW3.Controllers
             }
 
             // Create a new user object
-            var user = new Users
+            var user = new User
             {
                 Name = name,
                 Email = email,

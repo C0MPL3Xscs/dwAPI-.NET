@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace TrabalhoDW.TrabalhoDW.Models
 {
@@ -6,9 +8,9 @@ namespace TrabalhoDW.TrabalhoDW.Models
     /// <summary>
     /// Dados dos utilizadores
     /// </summary>
-    public class Users{
+    public class User : IdentityUser{
 
-        public Users(){
+        public User(){
             // inicializar a lista de eventos em o utilizador participa
             listaParticipant = new HashSet<Participants>();
             // inicializar a lista de eventos que o utilizador criou
@@ -16,11 +18,12 @@ namespace TrabalhoDW.TrabalhoDW.Models
 
         }
 
-        /// <summary>
+        /// <summary>s
         /// ID do user
         /// </summary>
+        [Key]
         public int Id { get; set; }
-
+        
 
         /// <summary>
         /// Data da criação da conta

@@ -5,17 +5,15 @@ using TrabalhoDW.TrabalhoDW.Models;
 
 namespace DW3.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
 
-
         }
 
-
-        public DbSet<Users> Users { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Events> Events { get; set; }
         public DbSet<Participants> Participants { get; set; }
 

@@ -14,12 +14,10 @@ namespace DW3.Controllers
     public class EventsControllerNET : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<Users> _userManager;
 
-        public EventsControllerNET(ApplicationDbContext context, UserManager<Users> userManager)
+        public EventsControllerNET(ApplicationDbContext context)
         {
             _context = context;
-            _userManager = userManager;
         }
 
         // GET: EventsControllerNET
@@ -29,27 +27,6 @@ namespace DW3.Controllers
             return _context.Events != null ?
                         View(await _context.Events.ToListAsync()) :
                         Problem("Entity set 'ApplicationDbContext.Events'  is null.");
-        }
-
-        // GET: Events/MyEvents
-        [HttpGet("MyEvents")]
-        public async Task<ActionResult> MyEvents()
-        {
-            var userId = await GetLoggedInUserId();
-
-            var eventsData = _context.Events
-                .Where(e => e.listaParticipants.Any(p => p.UserFK.ToString() == userId))
-                .ToList();
-
-            return View(eventsData);
-        }
-
-        // Get the logged-in user's ID
-        private async Task<string> GetLoggedInUserId()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            var userId = user.Id.ToString();
-            return userId;
         }
 
         // GET: EventsControllerNET/Details/5

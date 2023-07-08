@@ -23,7 +23,7 @@ namespace TrabalhoDW.TrabalhoDW.Models
         /// </summary>
         [ForeignKey(nameof(User))]
         public int UserFK { get; set; }
-        public Users User { get; set; }
+        public User User { get; set; }
 
         /// <summary>
         /// FK para o Event_ID
