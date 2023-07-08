@@ -8,7 +8,7 @@ namespace TrabalhoDW.TrabalhoDW.Models
     /// <summary>
     /// Dados dos utilizadores
     /// </summary>
-    public class User : IdentityUser{
+    public class User: IdentityUser{
 
         public User(){
             // inicializar a lista de eventos em o utilizador participa
